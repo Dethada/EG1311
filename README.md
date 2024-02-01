@@ -7,6 +7,16 @@
 
 ## Project
 
+### Specification
+The robot must be designed to meet the following specifications:
+- The robot must fit within a 30 x 30 x 30 cm cubic at start.
+- The robot must be made using only the materials provided.
+- The team may not interact with the robot after it leaves the starting area.
+- The team may not attach anything to the ping pong ball.
+- The robot has up to 30 seconds to complete the course.
+
+![Rubrics Table](CourseMaterials/rubric.png)
+
 ### Materials
 ![Table of given materials](CourseMaterials/materials.png)
 
