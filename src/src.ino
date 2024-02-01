@@ -1,8 +1,10 @@
-int TRIG_PIN = 13;
-int ECHO_PIN = 12;
-int MOTOR_PIN1 = 6;
-int MOTOR_PIN2 = 5;
-float SPEED_OF_SOUND = 0.0345;
+#define TRIG_PIN 13
+#define ECHO_PIN 12
+#define MOTOR_PIN1 6
+#define MOTOR_PIN2 5
+
+const float SPEED_OF_SOUND = 0.0345; // in cm/μs
+const float STOPPING_DISTANCE = 5;   // in cm
 
 void setup() {
   pinMode(MOTOR_PIN1, OUTPUT);
@@ -15,17 +17,17 @@ void setup() {
 
 void loop() {
   digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(10); // delay 10μs
   digitalWrite(TRIG_PIN, LOW);
   int microsecs = pulseIn(ECHO_PIN, HIGH);
-  float cms = microsecs*SPEED_OF_SOUND/2;
-  Serial.println(cms);
-  if (cms < 30) {
+  float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
+  Serial.println(detected_distance);
+  if (detected_distance < STOPPING_DISTANCE) { // stop motor
     digitalWrite(MOTOR_PIN1, LOW);
     digitalWrite(MOTOR_PIN2, LOW);
   } else {
     digitalWrite(MOTOR_PIN1, HIGH);
     digitalWrite(MOTOR_PIN2, HIGH);
   }
-  delay(10);
+  delay(10); // delay 10ms
 }
