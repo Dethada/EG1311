@@ -7,9 +7,16 @@
 
 ## Project
 
-Able to print one 20cm by 20cm 3mm thick Black Acrylic per Tutorial in addition to the following.
+### Materials
 ![Table of given materials](CourseMaterials/materials.png)
 
+Other allowed materials not listed in the table.
+- One 20cm by 20cm 3mm thick laser cut Black Acrylic per Tutorial
+- Paper Clips provided by the lab
+- Outside adhesive materials, specifically glue or tapes
+- Paper
+
+### Code
 The source code is in the [src](src/) directory.
 
 ## Arduino
