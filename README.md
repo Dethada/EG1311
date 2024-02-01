@@ -34,3 +34,9 @@ The source code is in the [src](src/) directory.
 - [Libraries](https://www.arduino.cc/reference/en/libraries/)
 - [Servo Library](https://www.arduino.cc/reference/en/libraries/servo/)
 
+## Data Sheets
+- [H-Bridge (L293DNE) Motor Driver](https://www.ti.com/lit/ds/symlink/l293.pdf)
+- [Ultrasonic Sensor (HC-SR04)](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf)
+- [Servo Motor](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/stores/sg90_datasheet.pdf)
+- [Arduino Uno](https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf)
+
