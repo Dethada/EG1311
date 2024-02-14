@@ -29,6 +29,9 @@ Other allowed materials not listed in the table.
 ### Code
 The source code is in the [src](src/) directory.
 
+### Design
+The design files are in the [designs](designs/) directory.
+
 ## Arduino
 - [Syntax Reference](https://www.arduino.cc/reference/en/)
 - [Libraries](https://www.arduino.cc/reference/en/libraries/)
