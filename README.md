@@ -29,6 +29,9 @@ Other allowed materials not listed in the table.
 ### Code
 The source code is in the [src](src/) directory.
 
+### Circuit Design
+- [TinkerCAD](https://www.tinkercad.com/things/7R11rqELGDK-eg1311-dual-motor-reverse?sharecode=ykvg1LWK5iq9sll4iqvDAoL9GLGRu_qvhObS8NK_BWs)
+
 ## Arduino
 - [Syntax Reference](https://www.arduino.cc/reference/en/)
 - [Libraries](https://www.arduino.cc/reference/en/libraries/)
