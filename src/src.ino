@@ -8,7 +8,7 @@
 const float SPEED_OF_SOUND = 0.0345; // in cm/μs
 const float STOPPING_DISTANCE = 5;   // in cm
 
-bool ball_launched = false;
+bool go_back = false;
 
 void setup() {
   // Motor
@@ -56,11 +56,11 @@ void loop() {
   int microsecs = pulseIn(ECHO_PIN, HIGH);
   float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
   Serial.println(detected_distance);
-  if (!ball_launched && detected_distance < STOPPING_DISTANCE) { // stop motor
+  if (detected_distance < STOPPING_DISTANCE) { // stop motor
     stop();
-    ball_launched = true;
+    go_back = !go_back;
     delay(1000);
-  } else if (ball_launched) {
+  } else if (go_back) {
     backward();
   } else {
     forward();
