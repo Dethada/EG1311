@@ -9,6 +9,7 @@ const float SPEED_OF_SOUND = 0.0345; // in cm/μs
 const float STOPPING_DISTANCE = 5;   // in cm
 
 bool go_back = false;
+bool moving = true;
 
 void setup() {
   // Motor
@@ -23,6 +24,7 @@ void setup() {
   pinMode (ECHO_PIN, INPUT);
 
   Serial.begin(9600);
+  moving = get_distance() >= STOPPING_DISTANCE;
 }
 
 void forward() {
@@ -63,11 +65,16 @@ void loop() {
   Serial.println(detected_distance);
   if (detected_distance < STOPPING_DISTANCE) { // stop motor
     stop();
-    go_back = !go_back;
+    if (moving) {
+      go_back = !go_back;
+      moving = false;
+    }
     delay(1000);
   } else if (go_back) {
+    moving = true;
     backward();
   } else {
+    moving = true;
     forward();
   }
   delay(10); // delay 10ms
