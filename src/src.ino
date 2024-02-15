@@ -49,12 +49,17 @@ void stop() {
   digitalWrite(MOTOR2_BACKWARD_PIN, LOW);
 }
 
-void loop() {
+float get_distance() {
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10); // delay 10μs
   digitalWrite(TRIG_PIN, LOW);
   int microsecs = pulseIn(ECHO_PIN, HIGH);
   float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
+  return detected_distance;
+}
+
+void loop() {
+  float detected_distance = get_distance();
   Serial.println(detected_distance);
   if (detected_distance < STOPPING_DISTANCE) { // stop motor
     stop();
