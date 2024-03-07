@@ -33,7 +33,7 @@ The source code is in the [src](src/) directory.
 The CAD files are in the [designs](designs/) directory.
 
 #### Circuit Design
-- [TinkerCAD](https://www.tinkercad.com/things/7R11rqELGDK-eg1311-quad-motor-reverse?sharecode=ykvg1LWK5iq9sll4iqvDAoL9GLGRu_qvhObS8NK_BWs)
+- [TinkerCAD](https://www.tinkercad.com/things/bUhybK7DVdw-eg1311-quad-motor-reverse-servo?sharecode=undefined)
 
 ## Arduino
 - [Syntax Reference](https://www.arduino.cc/reference/en/)
