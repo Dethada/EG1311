@@ -36,6 +36,10 @@ bool is_moving_backward() {
     return !curr_forward && !curr_stopped;
 }
 
+bool is_moving() {
+    return is_moving_forward() || is_moving_backward();
+}
+
 void forward() {
     digitalWrite(MOTOR_GRP1_FWD_PIN, HIGH);
     digitalWrite(MOTOR_GRP1_BCK_PIN, LOW);
@@ -73,7 +77,7 @@ float get_distance() {
     delayMicroseconds(10);
     digitalWrite(TRIG_PIN, LOW);
     int microsecs = pulseIn(ECHO_PIN, HIGH);
-    float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
+    float detected_distance = microsecs * SPEED_OF_SOUND / 2; // in cm
     return detected_distance;
 }
 
@@ -128,13 +132,10 @@ void loop() {
         delay(BUFFER_TIME_TO_LEAVE_THE_WALL);
     }
 
-    // Continue moving in the same direction
-    if (is_moving_forward()) {
-        forward();
-    } else if (is_moving_backward()) {
-        backward();
-    } else {
-        // Should not reach here
+    if (!is_moving()) {
+        // Sanity check. Execution should not reach here,
+        // as the only time the robot should stop is when it first reaches
+        // the wall and while firing the slingshot.
         Serial.println("Error: unexpected stopped state");
     }
     delay(INTER_LOOP_DELAY);
