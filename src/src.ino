@@ -20,67 +20,67 @@ bool curr_forward = true;
 bool curr_stopped = false;
 
 void store_state() {
-  prev_forward = curr_forward;
-  prev_stopped = curr_stopped;
+    prev_forward = curr_forward;
+    prev_stopped = curr_stopped;
 }
 
 bool was_moving_forward() {
-  return prev_forward && !prev_stopped;
+    return prev_forward && !prev_stopped;
 }
 
 bool is_moving_forward() {
-  return curr_forward && !curr_stopped;
+    return curr_forward && !curr_stopped;
 }
 
 bool is_moving_backward() {
-  return !curr_forward && !curr_stopped;
+    return !curr_forward && !curr_stopped;
 }
 
 void forward() {
-  digitalWrite(MOTOR_GRP1_FWD_PIN, HIGH);
-  digitalWrite(MOTOR_GRP1_BCK_PIN, LOW);
+    digitalWrite(MOTOR_GRP1_FWD_PIN, HIGH);
+    digitalWrite(MOTOR_GRP1_BCK_PIN, LOW);
 
-  digitalWrite(MOTOR_GRP2_FWD_PIN, HIGH);
-  digitalWrite(MOTOR_GRP2_BCK_PIN, LOW);
-  store_state();
-  curr_forward = true;
-  curr_stopped = false;
+    digitalWrite(MOTOR_GRP2_FWD_PIN, HIGH);
+    digitalWrite(MOTOR_GRP2_BCK_PIN, LOW);
+    store_state();
+    curr_forward = true;
+    curr_stopped = false;
 }
 
 void backward() {
-  digitalWrite(MOTOR_GRP1_FWD_PIN, LOW);
-  digitalWrite(MOTOR_GRP1_BCK_PIN, HIGH);
+    digitalWrite(MOTOR_GRP1_FWD_PIN, LOW);
+    digitalWrite(MOTOR_GRP1_BCK_PIN, HIGH);
 
-  digitalWrite(MOTOR_GRP2_FWD_PIN, LOW);
-  digitalWrite(MOTOR_GRP2_BCK_PIN, HIGH);
-  store_state();
-  curr_forward = false;
-  curr_stopped = false;
+    digitalWrite(MOTOR_GRP2_FWD_PIN, LOW);
+    digitalWrite(MOTOR_GRP2_BCK_PIN, HIGH);
+    store_state();
+    curr_forward = false;
+    curr_stopped = false;
 }
 
 void stop() {
-  digitalWrite(MOTOR_GRP1_FWD_PIN, LOW);
-  digitalWrite(MOTOR_GRP1_BCK_PIN, LOW);
+    digitalWrite(MOTOR_GRP1_FWD_PIN, LOW);
+    digitalWrite(MOTOR_GRP1_BCK_PIN, LOW);
 
-  digitalWrite(MOTOR_GRP2_FWD_PIN, LOW);
-  digitalWrite(MOTOR_GRP2_BCK_PIN, LOW);
-  store_state();
-  curr_stopped = true;
+    digitalWrite(MOTOR_GRP2_FWD_PIN, LOW);
+    digitalWrite(MOTOR_GRP2_BCK_PIN, LOW);
+    store_state();
+    curr_stopped = true;
 }
 
 float get_distance() {
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-  int microsecs = pulseIn(ECHO_PIN, HIGH);
-  float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
-  return detected_distance;
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+    int microsecs = pulseIn(ECHO_PIN, HIGH);
+    float detected_distance = microsecs*SPEED_OF_SOUND/2; // in cm
+    return detected_distance;
 }
 
 bool must_stop() {
-  float detected_distance = get_distance();
-  Serial.println(detected_distance);
-  return detected_distance < STOPPING_DISTANCE;
+    float detected_distance = get_distance();
+    Serial.println(detected_distance);
+    return detected_distance < STOPPING_DISTANCE;
 }
 
 void fire_slingshot() {
@@ -96,46 +96,46 @@ void reset_slingshot() {
 }
 
 void setup() {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
-  // Motor
-  pinMode(MOTOR_GRP1_FWD_PIN, OUTPUT);
-  pinMode(MOTOR_GRP1_BCK_PIN, OUTPUT);
-  pinMode(MOTOR_GRP2_FWD_PIN, OUTPUT);
-  pinMode(MOTOR_GRP2_BCK_PIN, OUTPUT);
+    // Motor
+    pinMode(MOTOR_GRP1_FWD_PIN, OUTPUT);
+    pinMode(MOTOR_GRP1_BCK_PIN, OUTPUT);
+    pinMode(MOTOR_GRP2_FWD_PIN, OUTPUT);
+    pinMode(MOTOR_GRP2_BCK_PIN, OUTPUT);
 
-  // Ultrasonic Sensor
-  pinMode(TRIG_PIN, OUTPUT);
-  digitalWrite(TRIG_PIN, LOW);
-  pinMode (ECHO_PIN, INPUT);
+    // Ultrasonic Sensor
+    pinMode(TRIG_PIN, OUTPUT);
+    digitalWrite(TRIG_PIN, LOW);
+    pinMode (ECHO_PIN, INPUT);
 
-  // Set the servo into the initial position to prepare for firing.
-  reset_slingshot();
+    // Set the servo into the initial position to prepare for firing.
+    reset_slingshot();
 
-  // It is expected that there is no obstacle in front of the robot
-  // at the start of the run, so we should start by moving forward.
-  forward();
+    // It is expected that there is no obstacle in front of the robot
+    // at the start of the run, so we should start by moving forward.
+    forward();
 }
 
 void loop() {
-  // Under expected conditions this is true iff we reach the wall,
-  // so stop and fire the slingshot, then reverse.
-  if (must_stop() && was_moving_forward()) {
-      stop();
-      fire_slingshot();
-      reset_slingshot();
-      backward();
-      delay(BUFFER_TIME_TO_LEAVE_THE_WALL);
-  }
+    // Under expected conditions this is true iff we reach the wall,
+    // so stop and fire the slingshot, then reverse.
+    if (must_stop() && was_moving_forward()) {
+        stop();
+        fire_slingshot();
+        reset_slingshot();
+        backward();
+        delay(BUFFER_TIME_TO_LEAVE_THE_WALL);
+    }
 
-  // Continue moving in the same direction
-  if (is_moving_forward()) {
-    forward();
-  } else if (is_moving_backward()) {
-    backward();
-  } else {
-    // Should not reach here
-    Serial.println("Error: unexpected stopped state");
-  }
-  delay(INTER_LOOP_DELAY);
+    // Continue moving in the same direction
+    if (is_moving_forward()) {
+        forward();
+    } else if (is_moving_backward()) {
+        backward();
+    } else {
+        // Should not reach here
+        Serial.println("Error: unexpected stopped state");
+    }
+    delay(INTER_LOOP_DELAY);
 }
