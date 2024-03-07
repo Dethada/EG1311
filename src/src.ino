@@ -95,12 +95,14 @@ bool must_stop() {
 
 void fire_slingshot() {
     Serial.println("Slingshot firing!");
+    servo.write(180);
     delay(SLINGSHOT_FIRING_DELAY);
     Serial.println("Slingshot fired!");
 }
 
 void reset_slingshot() {
     Serial.println("Slingshot resetting...");
+    servo.write(0);
     delay(SLINGSHOT_RESET_DELAY);
     Serial.println("Slingshot reset!");
 }
