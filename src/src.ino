@@ -11,8 +11,9 @@
 #define SERVO_PIN 2
 
 #define INTER_LOOP_DELAY 10 // ms
-#define SLINGSHOT_FIRING_DELAY 1000 // ms
-#define SLINGSHOT_RESET_DELAY 2000 // ms
+#define STOPPING_DELAY 250 // ms
+#define SLINGSHOT_FIRING_DELAY 500 // ms
+#define SLINGSHOT_RESET_DELAY 500 // ms
 #define BUFFER_TIME_TO_LEAVE_THE_WALL 2000 // ms
 
 const float SPEED_OF_SOUND = 0.0345; // in cm/μs
@@ -136,6 +137,7 @@ void loop() {
     // so stop and fire the slingshot, then reverse.
     if (must_stop() && was_moving_forward()) {
         stop();
+        delay(STOPPING_DELAY);
         fire_slingshot();
         reset_slingshot();
         backward();
