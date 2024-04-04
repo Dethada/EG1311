@@ -12,12 +12,12 @@
 
 #define INTER_LOOP_DELAY 10 // ms
 #define STOPPING_DELAY 250 // ms
-#define SLINGSHOT_FIRING_DELAY 500 // ms
-#define SLINGSHOT_RESET_DELAY 500 // ms
+#define SLINGSHOT_FIRING_DELAY 1000 // ms
+#define SLINGSHOT_RESET_DELAY 1000 // ms
 #define BUFFER_TIME_TO_LEAVE_THE_WALL 2000 // ms
 
 const float SPEED_OF_SOUND = 0.0345; // in cm/μs
-const float STOPPING_DISTANCE = 5;   // in cm
+const float STOPPING_DISTANCE = 10;   // in cm
 Servo servo;
 
 // State variables
